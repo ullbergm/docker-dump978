@@ -9,6 +9,10 @@ touch /var/log/lighttpd/error.log
 truncate -s 0 /var/log/lighttpd/error.log
 chown -R nobody /var/log/lighttpd
 
+# Configure http port
+if [[ -n "$HTTP_PORT" ]]; then
+    sed -i "s/^server.port.*/server.port = $HTTP_PORT/g" /etc/lighttpd/lighttpd.conf
+fi
 
 # Launch webapp unless disabled
 if [[ -z "$DISABLE_WEBAPP" ]]; then
